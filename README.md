@@ -22,6 +22,7 @@ In order to contribute to this project you must be a current 42 school student o
 - Every function requires documentation,
 - Documentation must be in Javadoc,
 - All helper functions must be made static,
-- Function names must be  "verb_noun" e.g.: get_list_length(),
+- Functions replicating the standard library must be named gr_function_name e.g.: strlen becomes gr_strlen
+- Otherwise function names must be "verb_noun" e.g.: get_list_length(),
 - NO PUSHING TO MAIN
 - All contributions require a Pull Request and a Code Review
