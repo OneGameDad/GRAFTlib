@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gr_strlen.c                                        :+:      :+:    :+:   */
+/*   gr_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpellech <gpellech@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jvarila <jvarila@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/31 14:43:04 by gpellech          #+#    #+#             */
-/*   Updated: 2024/10/31 14:43:46 by gpellech         ###   ########.fr       */
+/*   Created: 2025/03/22 21:53:31 by jvarila           #+#    #+#             */
+/*   Updated: 2025/03/22 21:56:06 by jvarila          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/graftlib.h"
 
-size_t	gr_strlen(const char *str)
+void	*gr_memcpy(void *dest, const void *src, size_t n)
 {
-	size_t	i;
+	char		*dest_str;
+	const char	*src_str;
+	size_t		i;
 
-	if (!str)
-		return (0);
+	if (n == 0 || src == dest)
+		return (dest);
+	dest_str = (char *)dest;
+	src_str = (const char *)src;
 	i = 0;
-	while (str[i] != '\0')
+	while (i < n)
 	{
-		++i;
+		dest_str[i] = src_str[i];
+		i++;
 	}
-	return (i);
+	return (dest);
 }
