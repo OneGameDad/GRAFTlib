@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gr_calloc.c                                        :+:      :+:    :+:   */
+/*   gr_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpellech <gpellech@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jvarila <jvarila@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/31 14:39:57 by gpellech          #+#    #+#             */
-/*   Updated: 2025/03/11 09:12:40 by gpellech         ###   ########.fr       */
+/*   Created: 2025/03/22 21:40:49 by jvarila           #+#    #+#             */
+/*   Updated: 2025/03/22 21:41:29 by jvarila          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/graftlib.h"
 
-void	*gr_calloc(size_t count, size_t size)
+char	*gr_strdup(t_arena *arena, const char *str)
 {
-	void	*ptr;
-	size_t	total;
+	char	*dup;
+	size_t	len;
+	size_t	bytes;
 
-	if (count <= 0 || size <= 0)
+	if (str == NULL)
 		return (NULL);
-	else if (count != 0 && (count * size) / count != size)
+	len = gr_strlen(str);
+	bytes = (len + 1) * sizeof(char);
+	dup = alloc_data(arena, bytes);
+	if (!dup)
 		return (NULL);
-	total = count * size;
-	ptr = malloc(total);
-	if (ptr == NULL)
-		return (NULL);
-	gr_bzero(ptr, total);
-	return (ptr);
+	gr_memcpy(dup, str, bytes);
+	return (dup);
 }

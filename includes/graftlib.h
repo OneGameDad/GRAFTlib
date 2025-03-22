@@ -35,6 +35,12 @@ void	gr_bzero(void *ptr, size_t n);
 
 size_t	gr_strlen(const char *str);
 
+int		gr_printf(const char *format, ...);
+
+void	*gr_memcpy(void *dest, const void *src, size_t n);
+
+char	*gr_strdup(t_arena *arena, const char *str);
+
 /************************************************************* CORE FUNCTIONS */
 
 int	init_new_arena(t_arena *arena, size_t capacity);

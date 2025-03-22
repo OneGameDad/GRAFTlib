@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/graftlib.h"
-#include <stdlib.h>
 
 void	gr_bzero(void *ptr, size_t n)
 {

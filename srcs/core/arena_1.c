@@ -1,6 +1,4 @@
 #include "../../includes/graftlib.h"
-#include <stdlib.h>
-#include <stdint.h>
 
 int	init_new_arena(t_arena *arena, size_t capacity)
 {
@@ -25,6 +23,8 @@ void	*alloc_data(t_arena *arena, size_t size)
 	t_arena *current;
 	int		i;
 
+	if (size > current->capacity)
+		return (NULL);
 	current = arena;
 	if ((current->size + size) > current->capacity && current->next == NULL)
 	{
@@ -77,10 +77,10 @@ void	print_arena_details(t_arena *arena)
 	i = 0;
 	while (current)
 	{
-		ft_printf("Arena Node: %d\n", i + 1);
-		ft_printf("Arena Capacity: %zu\n", arena->capacity);
-		ft_printf("Arena Size: %zu\n", arena->size);
-		ft_printf("Arena data pointer: %p\n", arena->data);
+		gr_printf("Arena Node: %d\n", i + 1);
+		gr_printf("Arena Capacity: %zu\n", arena->capacity);
+		gr_printf("Arena Size: %zu\n", arena->size);
+		gr_printf("Arena data pointer: %p\n", arena->data);
 		++i;
 		current = current->next;
 	}
