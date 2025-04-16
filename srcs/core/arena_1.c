@@ -1,16 +1,31 @@
 #include "../../includes/graftlib.h"
+#include <stddef.h>
+
+static size_t	round_to_eight(size_t num)
+{
+	size_t	result;
+
+	if ((num & 7) == 0)
+		return (num);
+	result = (num + 7) & ~7;
+	return (result);
+}
 
 int	init_new_arena(t_arena *arena, size_t capacity)
 {
 	void	*data;
+	size_t	size;
+	size_t	data_cap;
 
-	arena = gr_calloc(sizeof(t_arena), 1);
+	size = round_to_eight(sizeof(t_arena));
+	arena = gr_calloc(size, 1);
 	if (!arena)
 		return (ARENA_MALLOC_FAIL);
-	data = gr_calloc(sizeof(uint8_t), capacity);
+	data_cap = round_to_eight(capacity);
+	data = gr_calloc(sizeof(uint8_t), data_cap);
 	if (!data)
 		return (DATA_MALLOC_FAIL);
-	arena->capacity = capacity;
+	arena->capacity = data_cap;
 	arena->size = 0;
 	arena->data = data;
 	arena->next = NULL;
@@ -38,50 +53,5 @@ void	*alloc_data(t_arena *arena, size_t size)
 	return (data);
 }
 
-void	reset_arena(t_arena *arena)
-{
-	t_arena *current;
 
-	current = arena;
-	while (current)
-	{
-		current->size = 0;
-		gr_bzero(current->data, current->capacity);
-		current = current->next;
-	}
-}
 
-void	clean_arena(t_arena *arena)
-{
-	t_arena	*current;
-	t_arena	*temp;
-
-	current = arena;
-	while (current)
-	{
-		current->capacity = 0;
-		current->size = 0;
-		free(current->data);
-		temp = current->next;
-		free(current);
-		current = temp;
-	}
-}
-
-void	print_arena_details(t_arena *arena)
-{
-	int		i;
-	t_arena	*current;
-
-	current = arena;
-	i = 0;
-	while (current)
-	{
-		gr_printf("Arena Node: %d\n", i + 1);
-		gr_printf("Arena Capacity: %zu\n", arena->capacity);
-		gr_printf("Arena Size: %zu\n", arena->size);
-		gr_printf("Arena data pointer: %p\n", arena->data);
-		++i;
-		current = current->next;
-	}
-}
